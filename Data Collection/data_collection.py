@@ -33,6 +33,6 @@ def tocsv(filepath, url):
 
 def driver_code():
     url = "https://stats.espncricinfo.com/ci/content/records/83548.html"
-    tocsv("/home/d1rtyharry/Data Science/Cricket Analysis/data.csv", url)
+    tocsv("/home/d1rtyharry/Data Science/Cricket Analysis/Data Collection/scores.csv", url)
 
 driver_code()
