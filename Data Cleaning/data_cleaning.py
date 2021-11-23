@@ -9,7 +9,7 @@ import pandas as pd
 
 # convert the csv file from Data Collection folder to dataframe
 def convert_csv(filepath):
-    df = pd.read_csv(filepath)
+    df = pd.read_csv(filepath, index_col=0)
     return df
 
 # to csv
@@ -37,7 +37,18 @@ def cleaning(dataframe):
     # Here average is (Total Runs) / (Inns played)
     df['Arithmatic Average of Total Runs by Inns Played'] = df['Runs']/df['Inns']
     # sort by number of not outs in desc order
-    df = df.sort_values("Not outs per innings", ascending=False)
+    # df = df.sort_values("Not outs per innings", ascending=False)
+ 
+    # create a column to specify wheter the batsman was out or not out when he scored his highest
+    df['Not Out when scored highest'] = df['HS'].apply(lambda x: 1 if '*' in x else 0)
+    # Highest scores in numeric
+    df['HS Numeric'] = df['HS'].apply(lambda x: int(x[:-1]) if '*' in x else int(x))
+    # number of 100's, 50's, 0's per innings
+    df['100\'s per innings'] = df['100']/df['Inns']
+    df['50\'s per innings'] = df['50']/df['Inns']
+    df['0\'s per innings'] = df['0']/df['Inns']
+
+    
     return df
 
 
