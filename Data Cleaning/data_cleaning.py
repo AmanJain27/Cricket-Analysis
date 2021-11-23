@@ -22,6 +22,34 @@ def cleaning(dataframe):
     
     
     df = dataframe
+    # clean the player names and sort out the countries
+    countries = ['INDIA', 'SL', 'PAK', 'BAN', 'AUS', 'SA', 'WI', 'ENG' , 'IRE', 'ZIM', 'NZ']
+    d = {}
+    d['INDIA'] = 'INDIA'
+    d['SL'] = 'SRI LANKA'
+    d['PAK'] = 'PAKISTAN'
+    d['BAN'] = 'BANGLADESH'
+    d['AUS'] = 'AUSTRALIA'
+    d['SA'] = 'SOUTH AFRICA'
+    d['WI'] = 'WEST INDIES'
+    d['ENG'] = 'ENGLAND'
+    d['IRE'] = 'IRELAND'
+    d['ZIM'] = 'ZIMBABWE'
+    d['NZ'] = 'NEW ZEALAND'
+    # s.split('(')[1].split(')')[0].split('/')
+    c = []
+    for s in df['Player']:
+        i = s.split('(')[1].split(')')[0].split('/')
+        for e in i:
+            if e in countries:
+                c.append(d[e])
+                break
+    # print(len(c))
+    df['Country'] = c
+
+    # split the player name 
+    df['Player'] = df['Player'].apply(lambda x: x.split('(')[0])
+
     # debut year and final year
     df['Debut Year'] = df['Span'].apply(lambda x: x.split('-')[0])
     df['Last Year'] = df['Span'].apply(lambda x: x.split('-')[1])
@@ -47,7 +75,34 @@ def cleaning(dataframe):
     df['100\'s per innings'] = df['100']/df['Inns']
     df['50\'s per innings'] = df['50']/df['Inns']
     df['0\'s per innings'] = df['0']/df['Inns']
+    # 4's and 6's numeric
+    df["4s numeric"] = df['4s'].apply(lambda x : int(x) if '+' not in x else int(x[:-1]))
+    df["6s numeric"] = df['6s'].apply(lambda x : int(x) if '+' not in x else int(x[:-1]))
+    # total boundaries
+    df['boundaries'] = df['4s numeric'] + df['6s numeric']
+    # 4's and 6's per inns
+    df["4s per Inns"] = df["4s numeric"]/df["Inns"]
+    df["6s per Inns"] = df["6s numeric"]/df["Inns"]
+    # boundaries per innings
+    df['boundaries per innings'] = df['boundaries']/df['Inns']
+    # total runs scored by boundaries
+    df['runs scored by boundaries'] = df['4s numeric'].apply(lambda x : x*4) + df['6s numeric'].apply(lambda x : x*6)
+    # ratio of runs scored by boundaries
+    df['boundaries to runs ratio'] = df['runs scored by boundaries']/df['Runs']
 
+    # runs without boundaries
+    df['runs without boundaries'] = df['Runs'] - df['runs scored by boundaries']
+    # balls faced that weren't boundaries
+    df['BF without boundaries'] = df['BF']-df['boundaries']
+
+    # strike rate without boundaries
+    # Here we can subtract total number of boundaries from BF (Balls Faced) and subtract total runs
+    # scored by boundaries from total runs. We can then calculate the ratio to check the strike
+    # rate of a batter without boundaries.
+    df['Strike Rate without boundaries'] = (df['runs without boundaries']/df['BF without boundaries']) * 100 
+
+    # Average runs per year
+    df['Avg runs per year'] = df['Runs'] / df['Total Years']
     
     return df
 
