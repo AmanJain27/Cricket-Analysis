@@ -83,6 +83,8 @@ def cleaning(dataframe):
     # 4's and 6's per inns
     df["4s per Inns"] = df["4s numeric"]/df["Inns"]
     df["6s per Inns"] = df["6s numeric"]/df["Inns"]
+    # runs scored by boundaries per inns
+    df['Boundary Ave per Inns'] = df['4s per Inns']*4 + df['6s per Inns']*6
     # boundaries per innings
     df['boundaries per innings'] = df['boundaries']/df['Inns']
     # total runs scored by boundaries
@@ -100,7 +102,7 @@ def cleaning(dataframe):
     # scored by boundaries from total runs. We can then calculate the ratio to check the strike
     # rate of a batter without boundaries.
     df['Strike Rate without boundaries'] = (df['runs without boundaries']/df['BF without boundaries']) * 100 
-
+    
     # Average runs per year
     df['Avg runs per year'] = df['Runs'] / df['Total Years']
     
