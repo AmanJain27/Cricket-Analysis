@@ -25,25 +25,21 @@ def scrape(url):
     # print(table_body.text)
 
     table_text = table_body.text.split("\n")
-    for i in range(len(table_text)):
-        table_text[i] = table_text[i].split(")")
+
+    two_dimensional = []
 
     for i in range(len(table_text)):
-        table_text[i][1] = table_text[i][1].split(" ")
+        sp = table_text[i].split(" ")
+        two_dimensional.append(sp)    
+
+    merge_names = [[] for y in range(len(two_dimensional))]
     
-    for i in range(len(table_text)):
-        table_text[i][0] += ')'
-        table_text[i][1].pop(0)
+    for i in range(len(two_dimensional)):
+        merge_names[i].append(two_dimensional[i][0] + " " + two_dimensional[i][1])
+        for j in range(2, len(two_dimensional[i])):
+            merge_names[i].append(two_dimensional[i][j]) 
+    print(merge_names)
 
-    two_dimensional = [[] for x in range(len(table_text))]
-
-    for i in range(len(table_text)):
-        two_dimensional[i].append(table_text[i][0])
-        for j in range(len(table_text[i][1])):
-                two_dimensional[i].append(table_text[i][1][j])
-
-    # to return two_dimensional 
-    # print(two_dimensional)
-    return cols, two_dimensional    
+    return cols, merge_names
 
 
