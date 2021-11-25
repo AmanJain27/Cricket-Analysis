@@ -36,21 +36,20 @@ def tocsv(filepath, url):
 
 def merge_csvfile():
     all_files = glob.glob("scores_*.csv")    
-    df_merged = (pd.read_csv(f, sep=',', index_col=0) for f in all_files)
+    df_from_all_files = (pd.read_csv(f, sep=',', index_col=0) for f in all_files)
+    df_merged = pd.concat(df_from_all_files, ignore_index=True)
     df_merged.to_csv("merged.csv")
 
 def driver_code():
     url = "https://stats.espncricinfo.com/ci/content/records/83548.html"
-    ids = [40, 2, 25, 1, 140, 6, 29, 5, 7, 3,8,4, 9]
+    ids = [40, 2, 25, 1, 6, 29, 5, 7, 3,8,4, 9]
     list_of_files = []
     for i in ids:
         url = f"https://stats.espncricinfo.com/ci/engine/records/averages/batting.html?class=2;id={i};type=team"
-        list_of_files.append("scores{i}_.csv")
-        tocsv("scores_{i}.csv", url)
+        list_of_files.append(f"scores{i}_.csv")
+        tocsv(f"scores_{i}.csv", url)
     merge_csvfile()
 
 
-#driver_code()
-url = "https://stats.espncricinfo.com/ci/engine/records/averages/batting.html?class=2;id=40;type=team"
-df = make_dataframe(url)
-print(df)
+driver_code()
+#merge_csvfile()
