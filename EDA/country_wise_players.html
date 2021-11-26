@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="baac1488-cda9-4401-bcb6-2b437a880983" data-root-id="6814"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="6982">
+          {"2dd85750-2c6a-43e9-b0fc-3f5433959e6f":{"defs":[],"roots":{"references":[{"attributes":{"axis_label":"Countries","coordinates":null,"formatter":{"id":"6854"},"group":null,"major_label_policy":{"id":"6855"},"ticker":{"id":"6830"}},"id":"6829","type":"CategoricalAxis"},{"attributes":{"below":[{"id":"6825"}],"center":[{"id":"6828"},{"id":"6831"}],"left":[{"id":"6829"}],"renderers":[{"id":"6850"}],"title":{"id":"6815"},"toolbar":{"id":"6839"},"width":800,"x_range":{"id":"6817"},"x_scale":{"id":"6821"},"y_range":{"id":"6819"},"y_scale":{"id":"6823"}},"id":"6814","subtype":"Figure","type":"Plot"},{"attributes":{"coordinates":null,"group":null,"text":"Country wise distribution of Players"},"id":"6815","type":"Title"},{"attributes":{},"id":"6855","type":"AllLabels"},{"attributes":{},"id":"6817","type":"DataRange1d"},{"attributes":{},"id":"6823","type":"CategoricalScale"},{"attributes":{},"id":"6857","type":"BasicTickFormatter"},{"attributes":{"axis_label":"Players","coordinates":null,"formatter":{"id":"6857"},"group":null,"major_label_policy":{"id":"6858"},"ticker":{"id":"6826"}},"id":"6825","type":"LinearAxis"},{"attributes":{"source":{"id":"6846"}},"id":"6851","type":"CDSView"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"value":"Orange"},"hatch_alpha":{"value":0.2},"hatch_color":{"value":"Orange"},"height":{"value":0.4},"line_alpha":{"value":0.2},"line_color":{"value":"Orange"},"right":{"field":"right"},"y":{"field":"y"}},"id":"6849","type":"HBar"},{"attributes":{},"id":"6826","type":"BasicTicker"},{"attributes":{},"id":"6835","type":"SaveTool"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"value":"Orange"},"hatch_alpha":{"value":0.1},"hatch_color":{"value":"Orange"},"height":{"value":0.4},"line_alpha":{"value":0.1},"line_color":{"value":"Orange"},"right":{"field":"right"},"y":{"field":"y"}},"id":"6848","type":"HBar"},{"attributes":{"data":{"right":[93,87,86,83,83,75,72,60,52,46,20,17],"y":["ENGLAND","PAKISTAN","AUSTRALIA","NEW ZEALAND","WEST INDIES","SRI LANKA","INDIA","ZIMBABWE","SOUTH AFRICA","BANGLADESH","AFGHANISTAN","IRELAND"]},"selected":{"id":"6860"},"selection_policy":{"id":"6859"}},"id":"6846","type":"ColumnDataSource"},{"attributes":{"tools":[{"id":"6832"},{"id":"6833"},{"id":"6834"},{"id":"6835"},{"id":"6836"},{"id":"6837"}]},"id":"6839","type":"Toolbar"},{"attributes":{},"id":"6830","type":"CategoricalTicker"},{"attributes":{},"id":"6859","type":"UnionRenderers"},{"attributes":{},"id":"6833","type":"WheelZoomTool"},{"attributes":{},"id":"6854","type":"CategoricalTickFormatter"},{"attributes":{"coordinates":null,"data_source":{"id":"6846"},"glyph":{"id":"6847"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"6849"},"nonselection_glyph":{"id":"6848"},"view":{"id":"6851"}},"id":"6850","type":"GlyphRenderer"},{"attributes":{"factors":["IRELAND","NEW ZEALAND","INDIA","WEST INDIES","BANGLADESH","SOUTH AFRICA","AUSTRALIA","ENGLAND","ZIMBABWE","AFGHANISTAN","PAKISTAN","SRI LANKA"]},"id":"6819","type":"FactorRange"},{"attributes":{},"id":"6832","type":"PanTool"},{"attributes":{},"id":"6821","type":"LinearScale"},{"attributes":{},"id":"6836","type":"ResetTool"},{"attributes":{"fill_color":{"value":"Orange"},"hatch_color":{"value":"Orange"},"height":{"value":0.4},"line_color":{"value":"Orange"},"right":{"field":"right"},"y":{"field":"y"}},"id":"6847","type":"HBar"},{"attributes":{},"id":"6858","type":"AllLabels"},{"attributes":{"axis":{"id":"6829"},"coordinates":null,"dimension":1,"group":null,"ticker":null},"id":"6831","type":"Grid"},{"attributes":{},"id":"6860","type":"Selection"},{"attributes":{"axis":{"id":"6825"},"coordinates":null,"group":null,"ticker":null},"id":"6828","type":"Grid"},{"attributes":{"bottom_units":"screen","coordinates":null,"fill_alpha":0.5,"fill_color":"lightgrey","group":null,"left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","syncable":false,"top_units":"screen"},"id":"6838","type":"BoxAnnotation"},{"attributes":{"overlay":{"id":"6838"}},"id":"6834","type":"BoxZoomTool"},{"attributes":{},"id":"6837","type":"HelpTool"}],"root_ids":["6814"]},"title":"Bokeh Application","version":"2.4.2"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            const fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  const docs_json = document.getElementById('6982').textContent;
+                  const render_items = [{"docid":"2dd85750-2c6a-43e9-b0fc-3f5433959e6f","root_ids":["6814"],"roots":{"6814":"baac1488-cda9-4401-bcb6-2b437a880983"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    let attempts = 0;
+                    const timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
