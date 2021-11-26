@@ -22,40 +22,21 @@ def cleaning(dataframe):
     
     
     df = dataframe
-    # clean the player names and sort out the countries
-    countries = ['INDIA', 'SL', 'PAK', 'BAN', 'AUS', 'SA', 'WI', 'ENG' , 'IRE', 'ZIM', 'NZ']
-    d = {}
-    d['INDIA'] = 'INDIA'
-    d['SL'] = 'SRI LANKA'
-    d['PAK'] = 'PAKISTAN'
-    d['BAN'] = 'BANGLADESH'
-    d['AUS'] = 'AUSTRALIA'
-    d['SA'] = 'SOUTH AFRICA'
-    d['WI'] = 'WEST INDIES'
-    d['ENG'] = 'ENGLAND'
-    d['IRE'] = 'IRELAND'
-    d['ZIM'] = 'ZIMBABWE'
-    d['NZ'] = 'NEW ZEALAND'
-    # s.split('(')[1].split(')')[0].split('/')
-    c = []
-    for s in df['Player']:
-        i = s.split('(')[1].split(')')[0].split('/')
-        for e in i:
-            if e in countries:
-                c.append(d[e])
-                break
-    # print(len(c))
-    df['Country'] = c
-
-    # split the player name 
-    df['Player'] = df['Player'].apply(lambda x: x.split('(')[0])
-
     # debut year and final year
     df['Debut Year'] = df['Span'].apply(lambda x: x.split('-')[0])
     df['Last Year'] = df['Span'].apply(lambda x: x.split('-')[1])
     # number of years active
     df["Total Years"] = pd.to_numeric(df['Last Year']) - pd.to_numeric(df['Debut Year'])
+    df = df.loc[df['Total Years'] > 5].copy() 
+    df = df.reset_index()
+    # list of dataframes to convert to numeric
+    conv_numeric = ['Mat', 'Inns', 'NO', 'Runs', 'Ave', 'BF', 'SR', '100', '50', '0']
+    for i in conv_numeric:
+        df[i] = pd.to_numeric(df[i], errors="coerce")
+
+    
     # innings per matches
+    
     df['Innings per Matches'] = df['Inns']/df['Mat']
     
     # not outs per innings
@@ -76,6 +57,7 @@ def cleaning(dataframe):
     df['50\'s per innings'] = df['50']/df['Inns']
     df['0\'s per innings'] = df['0']/df['Inns']
     # 4's and 6's numeric
+  
     df["4s numeric"] = df['4s'].apply(lambda x : int(x) if '+' not in x else int(x[:-1]))
     df["6s numeric"] = df['6s'].apply(lambda x : int(x) if '+' not in x else int(x[:-1]))
     # total boundaries
@@ -111,10 +93,10 @@ def cleaning(dataframe):
 
 
 def driver_code():
-    converting_path = '../Data Collection/scores.csv'
+    converting_path = '../Data Collection/merged.csv'
     df = convert_csv(filepath=converting_path)
     df = cleaning(df)
-    to_convert_path = 'scores_reference.csv'
+    to_convert_path = 'scores_reference_2.csv'
     tocsv(to_convert_path, df)
 
 driver_code()

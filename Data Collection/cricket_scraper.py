@@ -15,8 +15,12 @@ def scrape(url):
     
     # scrape elements
     engineTable = driver.find_element(By.CLASS_NAME, "head")
+    # get the country name
+    icc_home = driver.find_element(By.CLASS_NAME, 'icc-home')
+    country_name = (icc_home.text.split('/')[1].strip())
     text = engineTable.text
     cols = text.split(" ")
+    cols.append("Country")
     # to return cols
     # print(cols)
 
@@ -25,25 +29,32 @@ def scrape(url):
     # print(table_body.text)
 
     table_text = table_body.text.split("\n")
-    for i in range(len(table_text)):
-        table_text[i] = table_text[i].split(")")
+
+    two_dimensional = []
 
     for i in range(len(table_text)):
-        table_text[i][1] = table_text[i][1].split(" ")
+        sp = table_text[i].split(" ")
+        sp.append(country_name)
+        two_dimensional.append(sp)    
+
+    merge_names = [[] for y in range(len(two_dimensional))]
     
-    for i in range(len(table_text)):
-        table_text[i][0] += ')'
-        table_text[i][1].pop(0)
+    for i in range(len(two_dimensional)):
+        s = ''
+        z = 0
+        for l in range(len(two_dimensional[i])):
+            if two_dimensional[i][l][:4].isdigit():
+                break
+            s += two_dimensional[i][l]
+            s += " "
+            z += 1
+        merge_names[i].append(s)
+        for j in range(z, len(two_dimensional[i])):
+            merge_names[i].append(two_dimensional[i][j]) 
+    # print(merge_names)
 
-    two_dimensional = [[] for x in range(len(table_text))]
-
-    for i in range(len(table_text)):
-        two_dimensional[i].append(table_text[i][0])
-        for j in range(len(table_text[i][1])):
-                two_dimensional[i].append(table_text[i][1][j])
-
-    # to return two_dimensional 
-    # print(two_dimensional)
-    return cols, two_dimensional    
+    return cols, merge_names
 
 
+#url = 'https://stats.espncricinfo.com/ci/engine/records/averages/batting.html?class=2;id=6;type=team'
+#print(scrape(url)[1])
