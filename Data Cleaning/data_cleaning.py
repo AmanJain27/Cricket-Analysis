@@ -87,7 +87,8 @@ def cleaning(dataframe):
     
     # Average runs per year
     df['Avg runs per year'] = df['Runs'] / df['Total Years']
-    
+    # number of innings the batsman got out
+    df['Number of Outs'] = df['Inns'] - df['NO']
     return df
 
 
