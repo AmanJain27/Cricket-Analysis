@@ -27,14 +27,14 @@ def cleaning(dataframe):
     df['Last Year'] = df['Span'].apply(lambda x: x.split('-')[1])
     # number of years active
     df["Total Years"] = pd.to_numeric(df['Last Year']) - pd.to_numeric(df['Debut Year'])
-    df = df.loc[df['Total Years'] > 5].copy() 
+    df = df.loc[df['Total Years'] >= 5].copy() 
     df = df.reset_index()
     # list of dataframes to convert to numeric
     conv_numeric = ['Mat', 'Inns', 'NO', 'Runs', 'Ave', 'BF', 'SR', '100', '50', '0']
     for i in conv_numeric:
         df[i] = pd.to_numeric(df[i], errors="coerce")
 
-    
+    df = df.loc[df['HS'] != '-'].copy()    
     # innings per matches
     
     df['Innings per Matches'] = df['Inns']/df['Mat']
@@ -87,7 +87,8 @@ def cleaning(dataframe):
     
     # Average runs per year
     df['Avg runs per year'] = df['Runs'] / df['Total Years']
-    
+    # number of innings the batsman got out
+    df['Number of Outs'] = df['Inns'] - df['NO']
     return df
 
 
@@ -96,7 +97,7 @@ def driver_code():
     converting_path = '../Data Collection/merged.csv'
     df = convert_csv(filepath=converting_path)
     df = cleaning(df)
-    to_convert_path = 'scores_reference_2.csv'
+    to_convert_path = 'scores_reference.csv'
     tocsv(to_convert_path, df)
 
 driver_code()
